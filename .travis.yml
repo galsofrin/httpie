@@ -8,9 +8,12 @@ os:
 env:
   global:
     - NEWEST_PYTHON=3.6
+    - secure: "tpqSOkzcjUmq2PvnzwemDBU/+c71MES1Y773nZwtYXchyR9fgd2fuoEon3WoMSeVxqtI8KeudhtSIxvIIh6V3lHvBtuepG9V3GAWmTHUO42kNh1+9w7ZfZREMEFQ7a0XvUhWjtG5aKdn8esWuDrMp8FVRpaMLfiGB3dReyy4OXmiUDjVhY4Tpwwtey31/EO80x5ukP0rOpHAS8TQl7o04FD55/djK1VSe4X1iWc80EU825AHbKyx3qtdLuzQO5YvoZYT+yetojJ4mqWQ6fYihuHqVc5G01mXVANHldcLsYVux4cF1sZMhGmITmExjMSEzeYTHeLOaB8FWuWRhxyskryaEJV2jBelcRNfA0+12YR4kSllJptI3nT9v7b/8UGkuJjr49Yu65SgcIi6lGZtUU/1nzonnemn2pBZDI2J9onKBl1SENMoDcNsq5ToHmXAKN58XvSzs65AEjwg4qUYVZXQcOhZuwTlb14TuZpH0ujsvaaatmyl5r60qMTsqw/ZchvKdCBRuhQVVJa97HBy0EXpdiWkwsGgvVLcTKqShfXy9X60IVG/p9d81/6CcgN3We134FM5WcpKydlvBUdzahmB9Zhpa7IsKyKkBqAkr3+5MVyGH4Uyf/SdEnuaGX4WW75/4hLbxUwxLnF5sVv+hTz+19ec8rWXvfWNADSO00U=" # DOCKER_EMAIL
+    - secure: "xiTXnIzC8syM4eRyLD1Z2OfLReHCSKwNxrpi2D2tS4N9QYrsMHMizK76IOnTwBP0w9aN+O7iIVo2QgKG17tkkCtv74R+EFVowlw8Ka/Y20GZeh9mULUXMz9b4xpepCYRJmdW9szFWLAgpGEZf0JwWVtj0uJXzknSA3vZZO0NtY+KIb0SYGYxN/8yagkCiSVGMjbYoEXdLiD5xCioERHqADfTUCXUGOYy8aTwrhBe0HrkkLz4Q44QGXTAvttKqtNr8b/oAwbt8OsMamgFbNQxHo0+W3zX4ecJ1QKeeZsCWCCe0vmEYwtRwvLBsISRKhu9r00/RlpWm9S0bU5ZQhRHquidy5mcw4jYChJ+rDn4p5BfAtIw+7yYplFHgymNZqp5OgP10bKmpVvxx8b7KnZj0IJEpiLEBwnIBzy3Aj/j3qnX1FR+mUScX8lFe6GAfoz1UpUPi6bgJm1qM+0viG3otdKnEoo+VHUUjzViy+7zhmwxWzXmIu2y19XM1ZDWPF0iXnIAiF5qrI+Jcg/3SFvnIRRgf9/f1BC8w9GCxZyyTeFNHISgSJvKB+OHvsMo40DRKveHL/P7zbWT/LSzezxioaxBxZFvzHoGRI0vTBSUaimzjb+qpGqAm+1+wB7NZOySIQOYDNduhMSERzshDmCqhrjhIXHcZFe8kdkmlZjKx9c=" # DOCKER_USER
+    - secure: "C5dpVtahikGmtDNLuINwxJyw3fTFQx5ty1SBw/B+TWO0S7KtoZXcfXLPBvmw9SoaCfFvp1WZjoeoLJ1MD9tntyIeWAgVdcIy1FdCAvR20TcIYNURp7loYwDT0eWZiqwbtFf3KF72d3z2cz1qIfOXA0rTNupjSjnG9XSys9z3+CcEpO74W/BPT9stNraRARHk7oLhFULRDm4UVp5YAagRNREDMRFD/NLMz6ohxwoz9zJm9YfK69s9La2y6KOHfOiTrITj0Y3wdgFLmUAutJZ/0/nyBxrImQkNfmH9xV26jhuAnJV0+k33hpyBU/a8MMYARslSQPlPtQ7i6tXbFyAImAn4qcnqyjH3Zk5+S97HYl6R5wVQ3GyXcq6w+sEF9EYolC054SlTFwedBhISVUmNQvAKLMsW3mJdEMWKuYgbQlkAWe0IO4u0X7vpvNG2E4r90qmnECA+lUX/TVaIADFobcDi7Y/KNuQ3E6GZWfduRFSEwxQsGbnUQ0Zl5VDWoEPkagP+ivxcnrvLlpxMxJNtBKD3Wc1iucjLEx3NPWBhyGHh79uHleNQAD0bYBtVk2gmaZdfsC7RVzyLEqRTABUHcRukE4izXqN7n1v+lDBFjpsAqpuCXuAyo5uYMXnj2l+LxOIJtc6U+iR97BSzH1Shs6F46rZOfAEWRm7UNcxtMSA=" # DOCKER_PASS
+    - COMMIT=${TRAVIS_COMMIT::8}
 
 python:
-  - pypy
   - 3.4
   - 3.5
   - 3.6
@@ -49,7 +52,7 @@ script:
         # 501 - line too long
         pycodestyle --ignore=E241,E501
       else
-        make test-all
+        make test-all  # line i added to test the code
         make
       fi
     else
@@ -61,7 +64,13 @@ after_success:
     if [[ $TRAVIS_PYTHON_VERSION == $NEWEST_PYTHON && $TRAVIS_OS_NAME == 'linux' ]]; then
       pip install python-coveralls && coveralls
     fi
-
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=galsofrin/citest
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
 notifications:
 
   webhooks:
