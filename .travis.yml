@@ -42,8 +42,8 @@ install:
     fi
 
 script:
-make test-all
   - |
+  make test-all
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       if [[ $CODESTYLE ]]; then
         # 241 - multiple spaces after ‘,’
