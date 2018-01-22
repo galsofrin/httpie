@@ -64,10 +64,10 @@ after_success:
       pip install python-coveralls && coveralls
     fi
   - docker login -u $DOCKER_EMAIL -p $DOCKER_PASS
-  - docker build -f Dockerfile -t $REPO/citest:$COMMIT .
-  - docker tag $REPO/citest:$COMMIT $REPO/citest:$TAG
-  - docker tag $REPO/citest:$COMMIT $REPO/citest:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO/citest
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
 notifications:
 
   webhooks:
