@@ -14,8 +14,6 @@ env:
     - COMMIT=${TRAVIS_COMMIT::8}
 
 python:
-  - 3.4
-  - 3.5
   - 3.6
 # Currently fails because of a Flask issue
 #  - pypy3
@@ -64,7 +62,7 @@ after_success:
     if [[ $TRAVIS_PYTHON_VERSION == $NEWEST_PYTHON && $TRAVIS_OS_NAME == 'linux' ]]; then
       pip install python-coveralls && coveralls
     fi
-  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=galsofrin/citest
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker build -f Dockerfile -t $REPO:$COMMIT .
