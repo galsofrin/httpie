@@ -65,10 +65,10 @@ after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=galsofrin/citest
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  - docker build -f Dockerfile -t $REPO:$COMMIT .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+  - docker build -f Dockerfile -t galsofrin/citest:$COMMIT .
+  - docker tag galsofrin/citest:$COMMIT galsofrin/citest:$TAG
+  - docker tag galsofrin/citest:$COMMIT galsofrin/citest:travis-$TRAVIS_BUILD_NUMBER
+  - docker push galsofrin/citest
 notifications:
 
   webhooks:
