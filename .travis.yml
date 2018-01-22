@@ -46,6 +46,7 @@ install:
 
 
 script:
+  - make test-all  # line i added to test the code
   - |
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       if [[ $CODESTYLE ]]; then
@@ -53,7 +54,6 @@ script:
         # 501 - line too long
         pycodestyle --ignore=E241,E501
       else
-        make test-all  # line i added to test the code
         make
       fi
     else
