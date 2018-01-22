@@ -42,6 +42,7 @@ install:
     fi
 
 script:
+make test-all
   - |
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       if [[ $CODESTYLE ]]; then
