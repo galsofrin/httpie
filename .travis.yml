@@ -16,7 +16,7 @@ env:
     - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
 
 python:
-  - 3.6
+  - 3.5
 # Currently fails because of a Flask issue
 #  - pypy3
 cache: pip
@@ -28,7 +28,7 @@ matrix:
  
     # Python Codestyle
     - os: linux
-      python: 3.6
+      python: 3.5
       env: CODESTYLE=true
 
 install:
