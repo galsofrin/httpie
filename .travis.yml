@@ -1,10 +1,13 @@
 # https://travis-ci.org/jakubroztocil/httpie
-sudo: false
+sudo: required 
 
 language: python
 os:
   - linux
 
+services:
+  - docker
+  
 env:
   global:
     - NEWEST_PYTHON=3.6
