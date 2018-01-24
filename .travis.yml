@@ -46,7 +46,7 @@ install:
 
 
 script:
-  - make test-all  # line i added to test the code
+#  - make test-all  # line i added to test the code
   - |
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       if [[ $CODESTYLE ]]; then
