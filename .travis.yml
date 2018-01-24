@@ -49,7 +49,7 @@ install:
 
 
 script:
-#  - make test-all  # line i added to test the code
+ - make test-all  # line i added to test the code
   - |
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       if [[ $CODESTYLE ]]; then
@@ -57,7 +57,7 @@ script:
         # 501 - line too long
         pycodestyle --ignore=E241,E501
       else
-        make test-all
+        make 
       fi
     else
       PATH="/usr/local/bin:$PATH" tox -e "$TOXENV"
